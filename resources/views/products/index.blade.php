@@ -1,4 +1,4 @@
-@extends('layouts')
+@extends('products.layouts')
 
 @section('content')
 
@@ -29,7 +29,7 @@
                     <tbody>
                         @forelse ($products as $product)
                         <tr>
-                            <th scope="row">{{ $loop->iteration }}</th>
+                        <th scope="row">{{ ($products->currentPage() - 1) * $products->perPage() + $loop->index + 1 }}</th>
                             <td>{{ $product->code }}</td>
                             <td>{{ $product->name }}</td>
                             <td>{{ $product->quantity }}</td>
@@ -43,7 +43,9 @@
 
                                     <a href="{{ route('products.edit', $product->id) }}" class="btn btn-primary btn-sm"><i class="bi bi-pencil-square"></i> Edit</a>   
 
-                                    <button type="submit" class="btn btn-danger btn-sm"><i class="bi bi-trash" onclick="return confirm('Do you want to delete this product?');"></i> Delete</button>
+                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Do you want to delete this product?');">
+                                        <i class="bi bi-trash"></i> Delete
+                                    </button>
                                 </form>
                             </td>
                         </tr>
